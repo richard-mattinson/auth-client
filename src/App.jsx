@@ -8,17 +8,39 @@ export default function App() {
     const [registerResponse, setRegisterResponse] = useState('');
     const [loginResponse, setLoginResponse] = useState('');
 
-    const register = async (e) => {
-        e.preventDefault();
+    const register = async (event) => {
+        event.preventDefault();
         // Write your register code here
-
-
+        try {
+            const { username, password } = user
+            if(!username || !password) {
+                setRegisterResponse(`Please enter a username and password`)
+            }
+            await fetch("http://www.localhost:4000/register", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({username, password})
+        })
+        setRegisterResponse(`Thank you for registering ${username}`)
+        } catch (error) {
+        setRegisterResponse(`Error: registration failed`)
+        }
     };
 
-    const login = async (e) => {
-        e.preventDefault();
+    const login = async (event) => {
+        event.preventDefault();
         // Write your login code here
+        try {
+            const { username, password } = user
+            if(!username || !password) {
+                setLoginResponse(`Please enter your username and password`)
+            }
+            await fetch("http://www.localhost:4000/login", {
+                
+            })
+        } catch {
 
+        }
         
     };
 
